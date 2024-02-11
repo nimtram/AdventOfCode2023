@@ -6,12 +6,12 @@
 int main()
 {
 std::string lineFromFile;
-std::ifstream MyReadFile("C:/Documents/Prg/Cpp/AdventOfCode2023/day1_input.txt");
+std::ifstream MyReadFile("C:/Documents/Prg/AdventOfCode2023/day1_input.txt");
 int sumOfNumbers = 0;
 
 std::string firstDigit;
 std::string secondDigit;
-std::string fullNumber;df
+std::string fullNumber;
 int i;
 while (std::getline (MyReadFile, lineFromFile)) {
     firstDigit = "x";
