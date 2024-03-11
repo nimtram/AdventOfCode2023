@@ -17,7 +17,10 @@ int main(){
   size_t linePos;
   int numberOfRepeatThisLine = 0;
   bool stop = false;
+  int totalCards = 0;
+
   while (std::getline (MyReadFile, lineFromFile) && (stop == false)) {
+    totalCards = totalCards + 1 + numberOfRepeatThisLine; 
     count = 0;
     std::cout << "Pocet opakovani: " << numberOfRepeatThisLine << std::endl;
     doubleDotPos = lineFromFile.find(':');
@@ -52,13 +55,12 @@ int main(){
       numberOfRepeatThisLine = numberOfRepeat[0];
       numberOfRepeat.pop_front();
     }else{
-      stop = true;
-      break;
+      numberOfRepeatThisLine = 0;
     }
     
     //std::cout << "count" << count << std::endl;
   }
-  std::cout << "totalScore" << totalScore << std::endl;
+  std::cout << "totalCards" << totalCards << std::endl;
 }
 
 
