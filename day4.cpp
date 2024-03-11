@@ -4,22 +4,22 @@
 #include <fstream>
 #include <bits/stdc++.h> 
 
-std::string extractFirstSubstring(const std::string& line);
 std::vector<int> extractSubstrings(const std::string& line);
 
-int main(){
 
+int main(){
+  std::deque<int> numberOfRepeat;
   std::string lineFromFile;
   std::ifstream MyReadFile("C:/Documents/Prg/AdventOfCode2023/day4_input.txt");
   int count = 0;
   int totalScore = 0;
   size_t doubleDotPos;
   size_t linePos;
-
-
-  while (std::getline (MyReadFile, lineFromFile)) {
+  int numberOfRepeatThisLine = 0;
+  bool stop = false;
+  while (std::getline (MyReadFile, lineFromFile) && (stop == false)) {
     count = 0;
-
+    std::cout << "Pocet opakovani: " << numberOfRepeatThisLine << std::endl;
     doubleDotPos = lineFromFile.find(':');
     linePos = lineFromFile.find('|');
 
@@ -35,9 +35,27 @@ int main(){
     std::set_intersection(firstHalfNumbers.begin(), firstHalfNumbers.end(), secondHalfNumbers.begin(), secondHalfNumbers.end(), std::back_inserter(commonElements));
     count = commonElements.size();
 
-    if(count > 0){
-      totalScore += (int)pow(2, (count-1));
+    for (int i = 0; i < count; i++)
+    {
+      if (i < numberOfRepeat.size()){
+        numberOfRepeat[i] += 1+(numberOfRepeatThisLine);
+      }else{
+        numberOfRepeat.push_back(1+numberOfRepeatThisLine);
+      }
     }
+    
+    if(count > 0){
+      totalScore += (int)pow(2, (count-1)) + (numberOfRepeatThisLine) * (int)pow(2, (count-1));
+    }
+
+    if(numberOfRepeat.size()>0){
+      numberOfRepeatThisLine = numberOfRepeat[0];
+      numberOfRepeat.pop_front();
+    }else{
+      stop = true;
+      break;
+    }
+    
     //std::cout << "count" << count << std::endl;
   }
   std::cout << "totalScore" << totalScore << std::endl;
